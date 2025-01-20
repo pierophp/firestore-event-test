@@ -16,11 +16,25 @@ message DocumentMask {
   repeated string field_paths = 1;
 }
 
+message DocumentIdKeyValue {
+    string key = 1;  
+    string value = 3;  
+}
+
+message DocumentIds {
+    string name = 1;  
+    repeated DocumentIdKeyValue collections = 2;  
+}
+
+message DocumentData {
+  DocumentIds ids = 1;
+  map<string, Value> fields = 3;  
+}
+
 message Document {
-  string name = 1;
-  map<string, Value> fields = 2;
-  google.protobuf.Timestamp create_time = 3;
-  google.protobuf.Timestamp update_time = 4;
+  DocumentData data = 1;
+  google.protobuf.Timestamp create_time = 5;
+  google.protobuf.Timestamp update_time = 6;
 }
 
 message Value {
@@ -36,6 +50,12 @@ message Value {
     google.type.LatLng geo_point_value = 8;
     ArrayValue array_value = 9;
     MapValue map_value = 6;
+  }
+}
+
+message Value2 {
+  oneof value_type {
+    string string_value = 3;
   }
 }
 
